@@ -1,0 +1,25 @@
+<app-auth-layout title="Masuk ke ExpiredStock" subtitle="Gunakan akun inventory manager Anda.">
+  @if (toast(); as t) {
+    <app-alert-toast [type]="t.type" [message]="t.message" (closed)="toast.set(null)" />
+  }
+  <form [formGroup]="form" (ngSubmit)="submit()" novalidate>
+    <app-input-text
+      label="Email"
+      type="email"
+      autocomplete="email"
+      placeholder="nama@perusahaan.com"
+      [control]="form.controls.email"
+    />
+    <app-input-text
+      label="Kata sandi"
+      type="password"
+      autocomplete="current-password"
+      placeholder="Minimal 8 karakter"
+      [control]="form.controls.password"
+    />
+    <app-primary-button type="submit" [loading]="loading()">
+      {{ loading() ? 'Memproses...' : 'Masuk' }}
+    </app-primary-button>
+  </form>
+  <span footer>Belum punya akun? <a routerLink="/register">Daftar sekarang</a></span>
+</app-auth-layout>

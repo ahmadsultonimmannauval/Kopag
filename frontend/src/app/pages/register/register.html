@@ -1,0 +1,40 @@
+<app-auth-layout
+  title="Buat akun baru"
+  subtitle="Daftarkan diri untuk mengelola stok dan kedaluwarsa."
+>
+  @if (errorText(); as message) {
+    <app-alert-toast type="error" [message]="message" (closed)="errorText.set(null)" />
+  }
+  <form [formGroup]="form" (ngSubmit)="submit()" novalidate>
+    <app-input-text
+      label="Nama lengkap"
+      autocomplete="name"
+      placeholder="Sarah Danastri"
+      [control]="form.controls.name"
+    />
+    <app-input-text
+      label="Email"
+      type="email"
+      autocomplete="email"
+      placeholder="nama@perusahaan.com"
+      [control]="form.controls.email"
+    />
+    <app-input-text
+      label="Kata sandi"
+      type="password"
+      autocomplete="new-password"
+      hint="Minimal 8 karakter, kombinasi huruf dan angka."
+      [control]="form.controls.password"
+    />
+    <app-input-text
+      label="Konfirmasi kata sandi"
+      type="password"
+      autocomplete="new-password"
+      [control]="form.controls.confirmPassword"
+    />
+    <app-primary-button type="submit" [loading]="loading()">
+      {{ loading() ? 'Memproses...' : 'Buat akun' }}
+    </app-primary-button>
+  </form>
+  <span footer>Sudah punya akun? <a routerLink="/login">Masuk</a></span>
+</app-auth-layout>

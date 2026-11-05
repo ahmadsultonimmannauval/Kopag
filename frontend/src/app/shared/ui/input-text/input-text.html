@@ -1,0 +1,18 @@
+<div class="field" [class.field--error]="error">
+  <label class="field__label" [for]="inputId">{{ label() }}</label>
+  <input
+    class="field__input"
+    [id]="inputId"
+    [type]="type()"
+    [formControl]="control()"
+    [placeholder]="placeholder()"
+    [attr.autocomplete]="autocomplete()"
+    [attr.aria-invalid]="error ? 'true' : 'false'"
+    [attr.aria-describedby]="error || hint() ? inputId + '-msg' : null"
+  />
+  @if (error) {
+    <p class="field__error" [id]="inputId + '-msg'">{{ error }}</p>
+  } @else if (hint()) {
+    <p class="field__hint" [id]="inputId + '-msg'">{{ hint() }}</p>
+  }
+</div>
