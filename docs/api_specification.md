@@ -1,64 +1,68 @@
-# REST API Specifications
+# REST API Specification
 
 **Base URL:** `http://localhost:5000/api/v1`
 
-## 1. Health Check
-- **Method:** GET
-- **Endpoint:** `/health`
-- **Auth:** Tidak perlu
-- **Response 200:** `{ "success": true, "message": "Server is running" }`
+All request bodies use JSON. Error responses use `{ "success": false, "message": "..." }`.
 
-## 2. Register
-- **Method:** POST
-- **Endpoint:** `/auth/register`
-- **Request Body:**
-```json
-{ "email": "user@example.com", "password": "password123", "fullName": "John Doe" }
+## Health Check
+`GET /health` requires no authentication.
 
-- **Response 201:** `{ "success": true, "message": "Registrasi berhasil", "data": {...} }`
-- **Response 400:** Field kosong, password < 8 karakter, email tidak valid
-- **Response 409:** Email sudah terdaftar
+## Authentication
+- `POST /auth/register` – register an EMPLOYEE account; body: `email`, `password`, `fullName`.
+- `POST /auth/login` – authenticate and return user, access token, and refresh token.
+- `POST /auth/refresh` – exchange a valid stored refresh token for a new access token.
+- `POST /auth/logout` – revoke the supplied refresh token.
+- `GET /auth/me` – return the current authenticated user; requires Bearer access token.
 
-## 3. Login
-- **Method:** POST
-- **Endpoint:** `/auth/login`
-- **Request Body:** `{ "email": "user@example.com", "password": "password123" }`
-- **Response 200:**
+A successful login response has the following structure:
 ```json
 {
   "success": true,
+  "message": "Login berhasil",
   "data": {
-    "user": { "id": 1, "email": "...", "role": "user" },
+    "user": { "id": 1, "email": "owner@example.com", "fullName": "Owner", "role": "OWNER" },
     "accessToken": "eyJ...",
     "refreshToken": "eyJ..."
   }
 }
+```
 
-Response 401: Email atau password salah
+## Reports
 
-4. Refresh Token
-Method: POST
+Both report endpoints require an access token and the `OWNER` role.
 
-Endpoint: /auth/refresh
+### Dashboard
+`GET /reports/dashboard`
 
-Request Body: { "refreshToken": "..." }
+Returns:
+```json
+{
+  "success": true,
+  "message": "Laporan dashboard berhasil diambil",
+  "data": {
+    "totalProducts": 12,
+    "totalStock": 250,
+    "layakJual": 8,
+    "mendekatiExpired": 3,
+    "expired": 1
+  }
+}
+```
 
-Response 200: { "success": true, "data": { "accessToken": "..." } }
+### Stock history
+`GET /reports/stock-history`
 
-5. Logout
-Method: POST
+Optional query parameters:
+- `page`: positive integer; default 1.
+- `limit`: integer 1–100; default 10.
+- `type`: `IN` or `OUT`.
+- `productId`: positive integer.
+- `from`, `to`: valid `YYYY-MM-DD` dates; both ends are inclusive.
 
-Endpoint: /auth/logout
+Example:
+`GET /reports/stock-history?page=1&limit=10&type=IN&from=2026-11-01&to=2026-11-04`
 
-Request Body: { "refreshToken": "..." }
+Response data contains `items` and `pagination` (`page`, `limit`, `total`, `totalPages`).
 
-Response 200: { "success": true, "message": "Logout berhasil" }
-
-6. Get Current User
-Method: GET
-
-Endpoint: /auth/me
-
-Auth: Bearer Token
-
-Response 200: { "success": true, "data": { "id": 1, "email": "...", "role": "user" } }
+## Authorization
+Roles are `OWNER` and `EMPLOYEE`. Product and stock permissions must also be enforced by their respective routes when those modules are implemented.
