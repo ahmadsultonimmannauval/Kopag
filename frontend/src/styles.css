@@ -1,1 +1,292 @@
-/* You can add global styles to this file, and also import other style files */
+:root {
+  --navy: #1e2d45;
+  --navy-deep: #16223a;
+  --green: #047857;
+  --green-dark: #065f46;
+  --green-soft: #d1fae5;
+  --red: #b91c1c;
+  --red-soft: #fee2e2;
+  --bg: #f4f7fc;
+  --surface: #ffffff;
+  --input-bg: #eef3fb;
+  --text: #131b2e;
+  --muted: #5b6577;
+  --radius: 10px;
+}
+* {
+  box-sizing: border-box;
+}
+body {
+  margin: 0;
+  font-family:
+    'Plus Jakarta Sans',
+    system-ui,
+    -apple-system,
+    'Segoe UI',
+    sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.5;
+}
+h1,
+h2 {
+  margin: 0;
+  letter-spacing: -0.02em;
+}
+a {
+  color: var(--green);
+  font-weight: 600;
+}
+:focus-visible {
+  outline: 3px solid #34d399;
+  outline-offset: 2px;
+}
+
+.auth {
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: 5fr 6fr;
+}
+.auth__brand {
+  background: var(--navy);
+  color: #e6ecf7;
+  padding: 40px 48px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.brand strong {
+  display: block;
+  font-size: 1.25rem;
+  color: #fff;
+}
+.brand small {
+  color: #6ee7b7;
+  font-weight: 600;
+}
+.brand__mark {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  background: var(--navy-deep);
+  border: 1px solid #2f4366;
+  display: grid;
+  place-items: center;
+  font-weight: 800;
+  color: #6ee7b7;
+}
+.auth__pitch h2 {
+  font-size: 2rem;
+  line-height: 1.2;
+  color: #fff;
+  max-width: 18ch;
+}
+.auth__pitch ul {
+  margin: 24px 0 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 10px;
+}
+.auth__pitch li {
+  padding-left: 22px;
+  position: relative;
+  color: #b8c5dd;
+}
+.auth__pitch li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.6em;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #34d399;
+}
+.auth__panel {
+  display: grid;
+  place-items: center;
+  padding: 32px 20px;
+}
+.auth__card {
+  width: 100%;
+  max-width: 440px;
+  background: var(--surface);
+  padding: 36px;
+  border-radius: 16px;
+  box-shadow:
+    0 1px 2px rgba(22, 34, 58, 0.06),
+    0 12px 32px rgba(22, 34, 58, 0.08);
+}
+.auth__card h1 {
+  font-size: 1.75rem;
+}
+.auth__subtitle {
+  color: var(--muted);
+  margin: 6px 0 24px;
+}
+.auth__footer {
+  text-align: center;
+  margin: 24px 0 0;
+  color: var(--muted);
+}
+
+.field {
+  margin-bottom: 18px;
+}
+.field__label {
+  display: block;
+  font-weight: 600;
+  font-size: 0.9rem;
+  margin-bottom: 6px;
+}
+.field__input {
+  width: 100%;
+  padding: 12px 14px;
+  font: inherit;
+  color: var(--text);
+  background: var(--input-bg);
+  border: 1.5px solid transparent;
+  border-radius: var(--radius);
+  transition:
+    border-color 0.15s,
+    background 0.15s;
+}
+.field__input::placeholder {
+  color: #8a94a8;
+}
+.field__input:focus {
+  background: #fff;
+  border-color: var(--green);
+  outline: none;
+}
+.field__input:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+.field--error .field__input {
+  border-color: var(--red);
+  background: #fff7f7;
+}
+.field__error {
+  color: var(--red);
+  font-size: 0.85rem;
+  margin: 6px 0 0;
+  font-weight: 500;
+}
+.field__hint {
+  color: var(--muted);
+  font-size: 0.85rem;
+  margin: 6px 0 0;
+}
+
+app-primary-button {
+  display: block;
+}
+.btn-primary {
+  width: 100%;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  padding: 13px 18px;
+  font: inherit;
+  font-weight: 700;
+  color: #fff;
+  background: var(--green);
+  border: 0;
+  border-radius: var(--radius);
+  cursor: pointer;
+  transition: background 0.15s;
+}
+.btn-primary:hover:not(:disabled) {
+  background: var(--green-dark);
+}
+.btn-primary:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+}
+.spinner {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  border: 2px solid rgba(255, 255, 255, 0.4);
+  border-top-color: #fff;
+  animation: spin 0.7s linear infinite;
+}
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.toast {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 14px;
+  border-radius: var(--radius);
+  margin-bottom: 18px;
+  font-weight: 600;
+  font-size: 0.92rem;
+}
+.toast--error {
+  background: var(--red-soft);
+  color: var(--red);
+}
+.toast--success {
+  background: var(--green-soft);
+  color: var(--green-dark);
+}
+.toast__close {
+  background: none;
+  border: 0;
+  font-size: 1.3rem;
+  line-height: 1;
+  cursor: pointer;
+  color: inherit;
+}
+
+.placeholder {
+  max-width: 520px;
+  margin: 15vh auto;
+  padding: 0 20px;
+  display: grid;
+  gap: 16px;
+}
+.placeholder app-primary-button {
+  justify-self: start;
+}
+.placeholder .btn-primary {
+  width: auto;
+}
+
+@media (max-width: 860px) {
+  .auth {
+    grid-template-columns: 1fr;
+  }
+  .auth__brand {
+    padding: 24px;
+    gap: 20px;
+  }
+  .auth__pitch {
+    display: none;
+  }
+  .auth__card {
+    padding: 26px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .spinner {
+    animation-duration: 2s;
+  }
+  * {
+    transition: none !important;
+  }
+}

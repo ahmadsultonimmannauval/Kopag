@@ -1,0 +1,27 @@
+<main class="auth">
+  <aside class="auth__brand">
+    <div class="brand">
+      <span class="brand__mark" aria-hidden="true">ES</span>
+      <div>
+        <strong>ExpiredStock</strong>
+        <small>ERP Enterprise</small>
+      </div>
+    </div>
+    <div class="auth__pitch">
+      <h2>Setiap batch punya batas waktu. Pantau sebelum terlambat.</h2>
+      <ul>
+        <li>Peringatan FEFO otomatis per batch</li>
+        <li>Mutasi stok tercatat real-time</li>
+        <li>Laporan kerugian kedaluwarsa bulanan</li>
+      </ul>
+    </div>
+  </aside>
+  <section class="auth__panel">
+    <div class="auth__card">
+      <h1>{{ title() }}</h1>
+      <p class="auth__subtitle">{{ subtitle() }}</p>
+      <ng-content />
+      <p class="auth__footer"><ng-content select="[footer]" /></p>
+    </div>
+  </section>
+</main>
