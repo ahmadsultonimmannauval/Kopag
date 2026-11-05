@@ -1,3 +1,4 @@
+# Kopag pagi
 # Kopag – Expired Stock Management System
 
 Backend progress is developed in the `server/` directory using the repository's current Express + PostgreSQL + JWT implementation.
